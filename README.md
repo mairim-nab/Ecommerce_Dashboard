@@ -1,41 +1,50 @@
 # Modelando um Dashboard de E-commerce com Power BI Utilizando Fórmulas DAX
 
-Este projeto foi elaborado com base em um dataset que reúne informações de vendas de uma empresa com diversas lojas localizadas na região Sudeste, no estado da Bahia e no Paraná. A modelagem de dados foi realizada dentro do Power BI utilizando as linguagens M e DAX, permitindo a transformação e análise dos dados. Exemplos de modelagem aplicados:
+## Desafio: Modelagem e Transformação de Dados com DAX no Power BI
 
-- Criação de uma coluna de margem de lucro com a seguinte fórmula DAX:
-  ```
-  margem_de_lucro = 1 - (DIVIDE([Preço Custo], [Valor de Venda], 0))
-  ```
-  Essa coluna foi explorada no relatório final para identificar a rentabilidade dos produtos.
+### Descrição do Desafio
 
-- Desenvolvimento de uma medida para calcular a média de vendas:
-  ```
-  Media_vendas = AVERAGE(Custos[Valor de Venda])
-  ```
-  Essa métrica foi utilizada como um dos indicadores principais no dashboard.
+O objetivo deste projeto foi utilizar a tabela única **Financial Sample** para construir um modelo de dados baseado no esquema estrela (*star schema*), criando tabelas de dimensão e fato. Esse processo envolveu a criação de novas tabelas derivadas da tabela original, selecionando colunas específicas para compor as visões necessárias. A tabela principal (fato) serviu como base para gerar as tabelas de dimensão.
 
-## Conclusões
+### Estrutura das Tabelas
+- **Financials_origem** (modo oculto - backup)
+- **F_Vendas** (fato)
+- **D_Produtos** (dimensão)
+- **D_Produtos_Detalhes** (dimensão)
+- **D_Detalhes** (dimensão)
+- **D_Calendário** (dimensão)
 
-O projeto tinha como objetivo atender às seguintes demandas de negócios: 
-- Cálculo da média de vendas.
-- Análise da margem de lucro.
-- Comparação entre valor de venda e preço de custo dos produtos.
-- Visualização de um indicador chave de desempenho (meta de margem de lucro).
+### Descrição dos Passos Realizados
 
-O relatório final respondeu claramente a todas essas demandas, fornecendo ao setor de negócios uma ferramenta prática para análises futuras relacionadas a vendas e custos.
+#### 1. Importação de Dados
+Os dados foram importados diretamente da planilha **Financial Sample** para o Power BI Desktop.
 
-## Insights Gerados
+#### 2. Duplicação da Tabela
+A tabela **Financials** foi duplicada e renomeada como **Financials_origem**, mantendo-a como backup no modo oculto.
 
-- **Gráfico de média de vendas (março):**
-  Um gráfico de linhas foi utilizado para representar as vendas do mês de março. A análise revelou uma oscilação significativa ao longo do período, com um pico entre os dias 5 e 10.
+#### 3. Criação da Tabela Fato
+Na área de modelagem, foi criada a tabela **F_Vendas**, que representa a tabela fato principal do modelo.
 
-- **Gráfico de margem de lucro por produto:**
-  A visualização demonstrou que o produto com maior volume de vendas foi o de código BX103. Essa informação pode direcionar estratégias para aumentar a oferta e promoção desse item.
+#### 4. Criação das Tabelas de Dimensão
+As seguintes tabelas de dimensão foram criadas a partir da tabela principal:
 
-- **Gráfico de dispersão (valor de vendas x preço de custo):**
-  A análise mostrou uma correlação positiva entre preço de custo e valor de venda, evidenciando uma relação clara e consistente entre essas variáveis.
+- **D_Produtos**
+- **D_Produtos_Detalhes**
+- **D_Detalhes**
+- **D_Descontos**
+- **D_Calendário** (construída com base no guia "Os Primeiros Passos com DAX")
 
-- **Meta da margem de lucro:**
-  A análise revelou que as vendas estão 4,72% abaixo da meta estabelecida, que é de 53,01%. Esse dado foi apresentado de forma clara para facilitar a tomada de decisões.
+#### 5. Transformação e Definição de Colunas
+As colunas das tabelas de dimensão foram transformadas e organizadas conforme as necessidades do modelo:
 
-Com essas informações, o dashboard não apenas atendeu às demandas do problema de negócio, mas também forneceu insights valiosos para estratégias futuras da empresa.
+- **D_Produtos**: Contém informações gerais dos produtos.
+- **D_Produtos_Detalhes**: Detalhes específicos de cada produto.
+- **D_Descontos**: Informações relacionadas a descontos aplicados.
+- **D_Detalhes**: Dados adicionais relevantes.
+
+#### 6. Organização e Relacionamentos
+As tabelas foram organizadas e os relacionamentos entre elas foram definidos de acordo com o esquema estrela, garantindo uma estrutura otimizada para análise de dados.
+
+### Conclusão
+O modelo criado seguiu as boas práticas de modelagem de dados e organização em esquema estrela, utilizando ferramentas do Power BI e fórmulas DAX para proporcionar uma estrutura eficiente e flexível para análise. Esse dashboard pode ser utilizado para gerar insights estratégicos relacionados às vendas e operações do e-commerce.
+
